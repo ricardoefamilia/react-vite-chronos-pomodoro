@@ -1,12 +1,19 @@
 import './styles/theme.css';
 import './styles/global.css';
-import { Heading } from './components/Heading';
+
+import { Container } from './components/Container';
+import { Heading } from './components/Heading'
 
 export function App() {
   return (
     <>
-        <Heading />
-        <p>Este é um aplicativo de exemplo.</p>
+        <Container>
+          <Heading>LOGO</Heading>
+        </Container>
+        
+        <Container>
+          <Heading>MENU</Heading>
+        </Container>
     </>
   );
 }
