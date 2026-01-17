@@ -16,7 +16,7 @@ export function DefaultInput({
   return (
     <>
       {labelText && (
-        <label htmlFor='meuInput' className={style.labelText}>
+        <label htmlFor={id} className={style.labelText}>
           {labelText}
         </label>
       )}

@@ -12,17 +12,8 @@ export function App() {
     <>
       <Container>
         <Logo />
-      </Container>
-
-      <Container>
         <Menu />
-      </Container>
-
-      <Container>
         <CountDown />
-      </Container>
-
-      <Container>
         <Form />
       </Container>
     </>
