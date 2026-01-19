@@ -1,10 +1,10 @@
-import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
+import { PlayCircleIcon } from 'lucide-react';
 import { Cycles } from '../Cycles';
 import { DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
 import styles from './style.module.css';
 
-export function Form() {
+export function MainForm() {
   return (
     <form className={styles.form} action=''>
       <div className={styles.formRow}>
