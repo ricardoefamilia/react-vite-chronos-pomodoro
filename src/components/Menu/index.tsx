@@ -1,8 +1,10 @@
 import { HistoryIcon, HouseIcon, SettingsIcon, SunIcon } from 'lucide-react';
 import styles from './style.module.css';
 
+type AvailableThemes = 'dark' | 'light';
+
 export function Menu() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<AvailableThemes>('dark');
 
   return (
     <nav className={styles.menu}>
