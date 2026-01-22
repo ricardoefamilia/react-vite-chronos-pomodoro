@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type React from 'react';
 import style from './style.module.css';
 
@@ -7,25 +8,27 @@ type DefaultInputProps = {
   placeHolder?: string;
 } & React.ComponentProps<'input'>;
 
-export function DefaultInput({
-  id,
-  labelText,
-  placeHolder,
-  type,
-}: DefaultInputProps) {
-  return (
-    <>
-      {labelText && (
-        <label htmlFor={id} className={style.labelText}>
-          {labelText}
-        </label>
-      )}
-      <input
-        id={id}
-        type={type}
-        className={style.input}
-        placeholder={placeHolder}
-      />
-    </>
-  );
-}
+export const DefaultInput = forwardRef<HTMLInputElement, DefaultInputProps>(
+  ({ id, labelText, placeHolder, type, ...rest }, ref) => {
+    return (
+      <>
+        {labelText && (
+          <label htmlFor={id} className={style.labelText}>
+            {labelText}
+          </label>
+        )}
+
+        <input
+          ref={ref}
+          id={id}
+          type={type}
+          className={style.input}
+          placeholder={placeHolder}
+          {...rest}
+        />
+      </>
+    );
+  },
+);
+
+DefaultInput.displayName = 'DefaultInput';
