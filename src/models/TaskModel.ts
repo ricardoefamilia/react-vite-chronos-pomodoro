@@ -1,3 +1,4 @@
+import type { CycleType } from "./CycleType";
 import type { TaskStateModel } from "./TaskStateModel";
 
 export type TaskModel = {
@@ -7,5 +8,5 @@ export type TaskModel = {
   startDate: number;
   completeDate: number | null; // qdo o timer chega ao final
   interruptDate: number | null; // qdo a task for interrompida
-  type: keyof TaskStateModel['config'];
+  type: CycleType;
 };
