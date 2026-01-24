@@ -1,5 +1,4 @@
-import type { CycleType } from "./CycleType";
-import type { TaskStateModel } from "./TaskStateModel";
+import type { CycleType } from './CycleType';
 
 export type TaskModel = {
   id: string;

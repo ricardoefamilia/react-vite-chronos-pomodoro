@@ -8,26 +8,22 @@ import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { formatSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
+import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import { Tips } from '../Tips';
 
 export function MainForm() {
-  // const [taskName, setTaskName] = useState(''); // (input controlado) se quiser renderizar cada contexto durante o preenchimento do formulário.
-  const { state, setState } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null); // input não controlado
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle);
-  const nextCycleType = getNextCycleType(nextCycle); // newTask.type
+  const nextCycleType = getNextCycleType(nextCycle);
 
   function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); // Não envia o formulário.
-    // console.log('Ref:', taskNameInput);
-    // console.log('Current: ', taskNameInput.current);
-    // console.log('Value:', taskNameInput.current?.value);
     if (taskNameInput.current === null) return;
 
     const taskName = taskNameInput.current.value.trim();
-    // console.log('Passou aqui também: ' + taskName);
     if (!taskName) {
       alert('Digite o nome da tarefa.');
       return;
@@ -43,49 +39,16 @@ export function MainForm() {
       type: nextCycleType,
     };
 
-    const secondsRemaining = newTask.duration * 60;
-
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining,
-        formattedSecondsRemaining: formatSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask],
-      };
-    });
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
   }
 
   function handleInterruptTask() {
-    setState(prevState => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedSecondsRemaining: '00:00',
-        tasks: prevState.tasks.map(task => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return { ...task, interruptDate: Date.now() };
-          }
-          return task;
-        }),
-      };
-    });
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
   }
 
   return (
     <form onSubmit={handleCreateNewTask} className={styles.form} action=''>
       <div className={styles.formRow}>
-        {/* <DefaultInput
-          type='text'
-          id='meuInput'
-          placeHolder='Digite algo...'
-          value={taskName}
-          onChange={e => setTaskName(e.target.value)}
-        /> */}
         <DefaultInput
           type='text'
           id='meuInput'
@@ -96,7 +59,7 @@ export function MainForm() {
       </div>
 
       <div className={styles.formRow}>
-        <p>Próximo intervalo é de 25min</p>
+        <Tips />
       </div>
 
       {state.currentCycle > 0 && (
