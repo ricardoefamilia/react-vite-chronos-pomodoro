@@ -1,5 +1,10 @@
 export function formatSecondsToMinutes(seconds: number) {
-  const minutes = String(Math.floor(seconds / 60)).padStart(2, '0');
-  const secondsMod = String(Math.floor(seconds % 60)).padStart(2, '0');
-  return `${minutes}:${secondsMod}`;
+  if (!Number.isFinite(seconds)) {
+    return '00:00';
+  }
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(
+    remainingSeconds,
+  ).padStart(2, '0')}`;
 }
