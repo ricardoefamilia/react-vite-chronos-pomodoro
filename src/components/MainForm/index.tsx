@@ -15,6 +15,7 @@ import { showMessage } from '../../adapters/showMessage';
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null); // input não controlado
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || ''; 
 
   // ciclos
   const nextCycle = getNextCycle(state.currentCycle);
@@ -62,6 +63,7 @@ export function MainForm() {
           placeHolder='Digite algo...'
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={lastTaskName}
         />
       </div>
 
