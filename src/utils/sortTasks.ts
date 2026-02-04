@@ -12,7 +12,20 @@
 //
 // O spread [...tasks] cria uma cópia do array original para não alterar ele direto.
 
-import { TaskModel } from '../models/TaskModel';
+// Função genérica para ordenar o array de tasks
+//
+// O método .sort() recebe uma função que compara dois itens (a, b) e deve retornar:
+// - Um número NEGATIVO (-1) se "a" deve vir antes de "b".
+// - Um número POSITIVO (1) se "a" deve vir depois de "b".
+// - ZERO (0) se não precisa mudar a ordem.
+//
+// A função cuida de:
+// 1. Se o valor for null, joga pro final da lista.
+// 2. Se for número, ordena numericamente (asc ou desc).
+// 3. Se for string, ordena alfabeticamente (asc ou desc).
+//
+// O spread [...tasks] cria uma cópia do array original para não alterar ele direto.
+import type { TaskModel } from '../models/TaskModel';
 
 // Define os parâmetros esperados pela função
 export type SortTasksOptions = {

@@ -6,34 +6,40 @@
 // payload <- os dados extras enviados junto com a action, se necessário para atualizar o estado
 
 import type { TaskModel } from '../../models/TaskModel';
+import type { TaskStateModel } from '../../models/TaskStateModel';
 
-export enum TaskActionTypes {
-  START_TASK = 'START_TASK',
-  INTERRUPT_TASK = 'INTERRUPT_TASK',
-  RESET_STATE = 'RESET_STATE',
-  COUNT_DOWN = 'COUNT_DOWN',
-  COMPLETE_TASK = 'COMPLETE_TASK',
-}
+export const TaskActionTypes = {
+  START_TASK: 'START_TASK',
+  INTERRUPT_TASK: 'INTERRUPT_TASK',
+  RESET_STATE: 'RESET_STATE',
+  COUNT_DOWN: 'COUNT_DOWN',
+  COMPLETE_TASK: 'COMPLETE_TASK',
+  CHANGE_SETTINGS: 'CHANGE_SETTINGS',
+} as const;
 
 export type TaskActionModeWithPayload =
   | {
-      type: TaskActionTypes.START_TASK;
+      type: typeof TaskActionTypes.START_TASK;
       payload: TaskModel;
     }
   | {
-      type: TaskActionTypes.COUNT_DOWN;
+      type: typeof TaskActionTypes.COUNT_DOWN;
       payload: { secondsRemaining: number };
+    }
+  | {
+      type: typeof TaskActionTypes.CHANGE_SETTINGS;
+      payload: TaskStateModel['config'];
     };
 
 export type TaskActionWithoutPayload =
   | {
-      type: TaskActionTypes.RESET_STATE;
+      type: typeof TaskActionTypes.RESET_STATE;
     }
   | {
-      type: TaskActionTypes.INTERRUPT_TASK;
+      type: typeof TaskActionTypes.INTERRUPT_TASK;
     }
   | {
-      type: TaskActionTypes.COMPLETE_TASK;
+      type: typeof TaskActionTypes.COMPLETE_TASK;
     };
 
 export type TaskActionModel =
